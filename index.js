@@ -56,13 +56,11 @@ app.use("/posts", postRoutes);
 // Mongoose Setup
 const PORT = process.env.PORT || 4000;
 const DATABASE_NAME = "Krishi-Mitra";
-await mongoose
-  .connect(
-    `mongodb+srv://hardikdaim:hardikdon2004@cluster0.vuuzkix.mongodb.net/${DATABASE_NAME}`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
+const MONGO_URL = process.env.MONGO_URL;
+await mongoose.connect(MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}
   )
   .then(async () => {
     console.log("Connected to MongoDB");
