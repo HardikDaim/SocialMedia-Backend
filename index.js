@@ -55,7 +55,6 @@ app.use("/posts", postRoutes);
 
 // Mongoose Setup
 const PORT = process.env.PORT || 4000;
-const DATABASE_NAME = "Krishi-Mitra";
 const MONGO_URL = process.env.MONGO_URL;
 await mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,

@@ -30,6 +30,31 @@ export const getUser = async (req, res) => {
     }
   };
   
+/* SEARCH */
+export const searchUsers = async (req, res) => {
+  try {
+    const query = req.params.query || ''; // Ensure query is defined and convert to string
+
+    const searchResults = await User.find({
+      $or: [
+        { firstName: { $regex: query, $options: 'i' } },
+        { lastName: { $regex: query, $options: 'i' } }
+      ]
+    });
+
+    const formattedResults = searchResults.map(
+      ({ userId, firstName, lastName, occupation, location, picturePath }) => {
+        return { userId, firstName, lastName, occupation, location, picturePath };
+      }
+    );
+
+    res.status(200).json(formattedResults);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
   /* UPDATE */
   export const addRemoveFriend = async (req, res) => {
     try {
